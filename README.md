@@ -34,8 +34,10 @@ A ready-to-extract tarball of the theme is attached to each [release](../../rele
 
 ## Disclaimer
 
-Unofficial fan work. Not affiliated with or endorsed by Hak5 or by the owners of Rick and Morty. Rick and Morty and its characters belong to their respective owners. The MIT license covers the code and original work in this repository, not third-party trademarks or characters.
+**Unofficial, non-commercial fan work.** Not affiliated with, sponsored by, or endorsed by Hak5 or by the creators or rights holders of *Rick and Morty*. *Rick and Morty* and its characters, names and related elements belong to their respective owners, and no ownership of them is claimed.
+
+Rights holders: if anything here concerns you, [open an issue](../../issues/new) and it will be removed promptly. See [NOTICE.md](NOTICE.md) for full details.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE), covering the original code and original work in this repository only. It grants no rights in third-party trademarks or characters. See [NOTICE.md](NOTICE.md).

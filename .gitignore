@@ -1,3 +1,7 @@
 *.tar.gz
 .DS_Store
 Thumbs.db
+# Local agent/tooling files: never publish (they can carry identity or machine details)
+.claude/
+CLAUDE.md
+tasks/
