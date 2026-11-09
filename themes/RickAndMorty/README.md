@@ -43,6 +43,6 @@ Built on the layout and component structure of Hak5's default **wargames** theme
 
 ## Known limitations
 
-- Unofficial fan theme. Not affiliated with or endorsed by the owners of Rick and Morty or by Hak5.
+- Unofficial, non-commercial fan theme. Not affiliated with, sponsored by, or endorsed by the creators or rights holders of *Rick and Morty*, or by Hak5. *Rick and Morty* and its characters belong to their respective owners. Not for sale. See [NOTICE.md](../../NOTICE.md); rights holders can request removal by opening an issue.
 - Written for theme framework 0.9 on firmware 2.0.0-stable. Hak5 does not guarantee theme compatibility across firmware versions. If a later firmware adds components this theme does not define, the Pager falls back to its built-in theme and writes `/tmp/uierrors.log`.
 - The hardware boot framebuffer screens shown before the UI starts are not part of a theme and are not included.
