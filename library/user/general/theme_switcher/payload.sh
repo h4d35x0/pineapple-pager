@@ -1,8 +1,9 @@
 #!/bin/bash
 # Title: Theme Switcher
 # Author: h4d35x0
-# Description: Preview theme screenshots and dashboard art on-screen via PROMPT_IMAGE before activating or installing from GitHub/PR
-# Version: 1.2
+# Description: Browse installed themes, preview their images on screen, and activate one. Can also preview the images in a theme pull request.
+# Category: general
+# Version: 1.3
 #
 # shellcheck disable=SC2181
 # Each picker result is assigned on its own line (after `local`), so `$?` is the
@@ -120,10 +121,14 @@ ensure_theme_complete() {
 
     # Three passes: a component copied in on one pass can reference assets that
     # only get picked up on the next.
+    # Paths come from the theme's own JSON, so any path with a ".." segment is
+    # skipped: it could otherwise make cp write outside the theme directory.
     local rel
     for _ in 1 2 3; do
         for rel in $(grep -o '"[^"]*\.\(json\|png\)"' "$tdir/theme.json" 2>/dev/null | tr -d '"' | sort -u); do
             case "$rel" in
+                ..|../*|*/..|*/../*)
+                    ;;
                 components/*|assets/*)
                     if [ ! -f "$tdir/$rel" ] && [ -f "$rom_theme/$rel" ]; then
                         mkdir -p "$(dirname "$tdir/$rel")"
@@ -135,6 +140,8 @@ ensure_theme_complete() {
         if [ -d "$tdir/components" ]; then
             for rel in $(find "$tdir/components" -type f -name "*.json" -exec grep -h -o '"[^"]*\.\(png\|json\)"' {} + 2>/dev/null | tr -d '"' | sort -u); do
                 case "$rel" in
+                    ..|../*|*/..|*/../*)
+                        ;;
                     components/*|assets/*)
                         if [ ! -f "$tdir/$rel" ] && [ -f "$rom_theme/$rel" ]; then
                             mkdir -p "$(dirname "$tdir/$rel")"
@@ -312,10 +319,15 @@ preview_github_pr() {
         PROMPT_IMAGE "$f"
     done
 
+    local pull_pr="/mmc/root/payloads/user/general/PullThemePR/payload.sh"
+    if [ ! -x "$pull_pr" ]; then
+        PROMPT "To install PR themes, install the PullThemePR payload."
+        return
+    fi
     local resp
-    resp=$(CONFIRMATION_DIALOG "Install theme from PR #$pr now via ThemeNab?")
-    if [ "$resp" = "${DUCKYSCRIPT_USER_CONFIRMED:-1}" ] && [ -x /mmc/root/payloads/user/general/PullThemePR/payload.sh ]; then
-        /mmc/root/payloads/user/general/PullThemePR/payload.sh
+    resp=$(CONFIRMATION_DIALOG "Install theme from PR #$pr now via PullThemePR?")
+    if [ "$resp" = "${DUCKYSCRIPT_USER_CONFIRMED:-1}" ]; then
+        "$pull_pr"
     fi
 }
 
